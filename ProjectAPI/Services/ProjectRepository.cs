@@ -39,25 +39,9 @@ namespace ProjectAPI.Services
             return await _appContext.Projects.ToListAsync();
         } //klar
 
-        public Task<Project> GetEmpWithProject(int id)
-        {
-            throw new NotImplementedException();
-        }
+   
+ 
 
-        public Task<Project> GetEmpWithTime(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Project> GetEmpWithTimeSpecWeek(int empId, int weekId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Project> GetProjectWithEmp(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<Project> GetSingel(int id)
         {
@@ -79,5 +63,20 @@ namespace ProjectAPI.Services
             }
             return null;
         }//klar
+
+        Task<IEnumerable<Project>> IProgramRepository<Project>.GetEmpWithProject(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<Project>> IProgramRepository<Project>.GetEmpWithTime(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<Project>> IProgramRepository<Project>.GetEmpWithTimeSpecWeek(int empId, int weekId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

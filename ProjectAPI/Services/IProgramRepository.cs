@@ -12,11 +12,10 @@ namespace ProjectAPI.Services
         Task<T> Add(T newEntity);
         Task<T> Update(T Entity);
         Task<T> Delete(int id);
-        Task<T> GetEmpWithTime(int id);
-        Task<T> GetProjectWithEmp(int id);
+        Task<IEnumerable<T>> GetEmpWithTime(int id);
 
-        Task<T> GetEmpWithProject(int id);
-        Task<T> GetEmpWithTimeSpecWeek(int empId, int weekId);
+        Task<IEnumerable<T>> GetEmpWithProject(int id);
+        Task<IEnumerable<T>> GetEmpWithTimeSpecWeek(int empId, int weekId);
 
 
 

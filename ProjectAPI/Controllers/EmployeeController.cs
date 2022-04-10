@@ -121,5 +121,26 @@ namespace ProjectAPI.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetEmpWithTime/{id}")]
+        public async Task<ActionResult<Employee>> GetEmpWithTime(int id)
+        {
+            try
+            {
+                var result = await _employeeRepo.GetEmpWithTime(id);
+                if (result.Any())
+                {
+                    return Ok(result);
+                }
+                return NotFound($"User with Id: '{id}' could not be found in the database");
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error to find users Timereport");
+            }
+
+        }
+
     }
 }

@@ -10,6 +10,8 @@ namespace ProjectModels
         [Key]
         public int Id { get; set; }
         public double HoursWorked { get; set; }
+
+        [Range(1, 52, ErrorMessage = "Week number be between 1 and 52")]
         public int WeekNumber { get; set; }
 
         public Employee Employee { get; set; }

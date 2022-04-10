@@ -48,7 +48,7 @@ namespace ProjectAPI.Controllers
             catch (Exception)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error to retrieve singel Time report from database.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error to retrieve singel time report from database.");
             }
         }
 
@@ -59,7 +59,7 @@ namespace ProjectAPI.Controllers
             {
                 if (newTimeReport == null)
                 {
-                    return BadRequest();
+                    return BadRequest("The new time report input was not correct");
                 }
 
                 var createdTimeReport = await _timeReportRepo.Add(newTimeReport);
@@ -120,5 +120,68 @@ namespace ProjectAPI.Controllers
                     "Error to update Time report in database.");
             }
         }
+
+        [HttpGet]
+        [Route("GetEmpWithTime/{id}")]
+        public async Task<ActionResult<TimeReport>> GetEmpWithTime(int id)
+        {
+            try
+            {
+                var result = await _timeReportRepo.GetEmpWithTime(id);
+                if (result.Any())
+                {
+                    return Ok(result);
+                }
+                return NotFound($"User with Id: '{id}' could not be found in the database");
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error to find users Timereport");
+            }
+
+        }
+
+        [HttpGet]
+        [Route("GetEmpWithProject/{id}")]
+        public async Task<ActionResult<TimeReport>> GetEmpWithProject(int id)
+        {
+            try
+            {
+                var result = await _timeReportRepo.GetEmpWithProject(id);
+                if (result.Any())
+                {
+                    return Ok(result);
+                }
+                return NotFound($"Employee with Id: '{id}' could not be found in the database");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("GetEmpWithTimeSpecWeek/{id}/{week}")]
+        public async Task<ActionResult<TimeReport>> GetEmpWithTimeSpecWeek(int id, int week)
+        {
+            try
+            {
+                var result = await _timeReportRepo.GetEmpWithTimeSpecWeek(id, week);
+                if (result.Any())
+                {
+                    return Ok(result);
+                }
+                return NotFound($"Employee with Id: '{id}' could not be found in the database");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
     }
 }

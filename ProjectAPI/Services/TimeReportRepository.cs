@@ -40,25 +40,7 @@ namespace ProjectAPI.Services
             return await _appContext.TimeReports.ToListAsync();
         }//Klar
 
-        public Task<TimeReport> GetEmpWithProject(int id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<TimeReport> GetEmpWithTime(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<TimeReport> GetEmpWithTimeSpecWeek(int empId, int weekId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<TimeReport> GetProjectWithEmp(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<TimeReport> GetSingel(int id)
         {
@@ -79,6 +61,45 @@ namespace ProjectAPI.Services
 
                 await _appContext.SaveChangesAsync();
                 return result;
+            }
+            return null;
+        }//Klar
+    
+        public async Task<IEnumerable<TimeReport>> GetEmpWithTime(int id)
+        {
+
+           
+            var res = await _appContext.TimeReports.Include(e => e.Employee).Where(em => em.EmployeeId == id).ToListAsync();
+
+            if (res != null)
+            {
+                return res;
+            }
+            return null;
+
+
+
+
+        }//Klar
+
+        public async Task<IEnumerable<TimeReport>> GetEmpWithProject(int id)
+        {
+            var res = await _appContext.TimeReports.Include(x => x.Project).Include(x => x.Employee).Where(x => x.ProjectId == id).ToListAsync();
+
+            if (res != null)
+            {
+                return res;
+            }
+            return null;
+        }//Klar
+
+        public async Task<IEnumerable<TimeReport>> GetEmpWithTimeSpecWeek(int empId, int weekId)
+        {
+            var res = await _appContext.TimeReports.Include(x => x.Employee).Where(x => x.EmployeeId == empId).Where(x => x.WeekNumber == weekId).ToListAsync();
+
+            if (res != null)
+            {
+                return res;
             }
             return null;
         }//Klar
